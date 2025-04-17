@@ -1,0 +1,60 @@
+---
+title: "Ex1"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# 1)
+
+## a)
+
+**Potential Data Setup**:
+
+
+|Variable Name  |Role     |Type         |
+|---------------|---------|-------------|
+|Price          |Target   |Numeric      |
+|Mileage        |Feature  |Numeric      |
+|days old       |Feature  |Numeric      |
+|service necessary           |Feature  |Categorical  |
+|accident-free  |Feature  |Categorical  |
+|...            |...      |...          |
+
+## b)
+
+We can assume, that negative mileage or age are not possible, therefore the feature space is given as
+$\mathcal{X} = \mathbb{R}^+_0 \times \mathbb{R}^+_0$ and the target space as $\mathcal{Y} = \mathbb{R}$ (negative prices maybe quite uncommon, yet not impossible if we consider recycling).
+
+## c)
+
+$\mathcal{H} = \{f | f(x) = \theta^\top x = \theta_0 + \theta_1 \cdot mileage + \theta_2 \cdot age \}$
+
+## d)
+
+$\theta_i, \hspace{.2cm} i = 0,1,2$ need to be learned, each $\theta_i \in \mathbb{R}$, which leads us to: 
+$\Theta = \mathbb{R}^3$.
+
+## e)
+
+$\mathcal{L}_i(\theta) = (y_i - \theta^{\top}x_i)^2 = (y_i - \theta_0 - \theta_1\cdot mileage_i + \theta_2\cdot age_i)^2$
+
+
+## f)
+
+The optimization problem is then:
+
+$$
+\hat{\theta} = \underset{\theta \in \Theta}{arg \hspace{.1cm} min} \sum_{i=1}^n\mathcal{L}_i(\theta) = \underset{\theta \in \Theta}{arg \hspace{.1cm} min} \hspace{.2cm} \mathcal{L}(\theta)
+$$
+
+To minimize $\mathcal{L}(\theta)$ we want to set $\frac{d\mathcal{L(\theta)}}{d\theta} = 0$.
+
+For the Linear Model, there exists a closed form solution as long as $X$ has full rank:
+
+We can rewrite $\mathcal{L}(\theta)$ as 
+$(y - X \theta)^\top(y- X \theta) = y^\top y - y^\top X\theta - \theta^\top X^\top y + \theta^\top X^\top X \theta$ and get to $\frac{d\mathcal{L(\theta)}}{d\theta} = \theta^\top X^\top X - y^\top X$.
+Next we obtain $\theta^\top X^\top X = y^\top X \iff X^\top X \theta = X^\top y$.
+
+Thus obtaining the Ordinary Least Squares Estimator $\hat{\theta}_{OLS} = (X^\top X)^{-1}X^\top y$
+
